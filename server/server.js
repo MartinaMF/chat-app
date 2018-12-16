@@ -11,10 +11,26 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 io.on('connection', function(socket){
   console.log('New user connected');
+  socket.emit('newEmail',{
+    from : 'martina faragalla',
+    text : 'hey how u doing'
+  });
+  socket.on('creatEmail', function(newEmail){
+    console.log('creat Email' , newEmail)
+  });
+  socket.on('disconnect',function(){
+  console.log('client disconnected');
+  });
+  socket.on('createMessage',function(message){
+    console.log('new message' + message.text + new Date());
+  });
+  socket.emit('newMessage', {
+    text : 'hello',
+    time : new Date(),
+    from : 'Timmy'
+  });
 });
-// socket.on('disconnect',function(){
-//   console.log('client disconnected');
-// });
+
 server.listen(port, ()=>{
   console.log(`server is running on ${port}`);
 });

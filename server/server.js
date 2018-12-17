@@ -1,4 +1,5 @@
 const path = require('path');
+const {generateMessage} = require('./utils/message');
 const http = require('http');
 const socketIO = require('socket.io');
 const express = require('express');
@@ -11,23 +12,20 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 io.on('connection', function(socket){
   console.log('New user connected');
-  socket.emit('newEmail',{
-    from : 'martina faragalla',
-    text : 'hey how u doing'
-  });
-  socket.on('creatEmail', function(newEmail){
-    console.log('creat Email' , newEmail)
-  });
+  socket.emit('newMessage', generateMessage('Admin','Welcom to the chat app'));
+  socket.broadcast.emit('newMessage', generateMessage('Admin','New user join'));
   socket.on('disconnect',function(){
   console.log('client disconnected');
   });
-  socket.on('createMessage',function(message){
-    console.log('new message' + message.text + new Date());
-  });
-  socket.emit('newMessage', {
-    text : 'hello',
-    time : new Date(),
-    from : 'Timmy'
+  socket.on('createMessage',function(message,callback){
+    io.emit('newMessage',generateMessage(message.from, message.text));
+    callback('this is from the server');
+    console.log(message);
+    // socket.broadcast.emit('newMessage',{
+    //   from : message.from,
+    //   text: message.text,
+    //   createdAt:new Date().getTime()
+    // });
   });
 });
 

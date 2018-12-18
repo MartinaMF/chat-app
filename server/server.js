@@ -1,5 +1,5 @@
 const path = require('path');
-const {generateMessage} = require('./utils/message');
+const {generateMessage,generateLocationMessage} = require('./utils/message');
 const http = require('http');
 const socketIO = require('socket.io');
 const express = require('express');
@@ -26,6 +26,9 @@ io.on('connection', function(socket){
     //   text: message.text,
     //   createdAt:new Date().getTime()
     // });
+  });
+  socket.on('createLocationMessage',function(coords){
+    io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude))
   });
 });
 

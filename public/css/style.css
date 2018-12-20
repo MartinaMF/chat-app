@@ -1,0 +1,41 @@
+*{
+  color:#ccc;
+}
+#messages{
+  width: 100%;
+  height: 80%;
+}
+button {
+    background: 767aa0db;
+    background-color: #767aa0db;
+    width: 100px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 5px;
+}
+input[type="text"] {
+    width: 300px;
+    height: 30px;
+    margin: 10px;
+    border-radius: 5px;
+}
+.column1 , .column2{
+  height: 100%;
+}
+.column1{
+  background-color: #767aa0db;
+}
+.messageP {
+    font-weight: lighter;
+    font-size: 14px;
+    font-family: cursive;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 300px auto;
+  height: 600px;
+}
+.chat_footer{
+  display:flex;
+  justify-content:flex;
+}

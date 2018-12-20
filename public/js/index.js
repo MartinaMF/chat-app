@@ -6,12 +6,13 @@ socket.on('disconnect',function(){
   console.log('disconnected from server');
 });
 socket.on('newMessage',function(message){
-  console.log('new Message' + message.createdAt);
-  var messageList = `<li><p class="messageP">${message.text}</p></li>`;
+  var formatedTime = moment(message.createdAt).format('h:mm a');
+  var messageList = `<li><p class="messageP">${message.from} ${formatedTime} :${message.text}</p></li>`;
   $('#messages').append(messageList);
 });
 socket.on('newLocationMessage',function(message){
-  var li = `<li>from : ${message.from}<a target="blank" href="${message.url}">
+  var formatedTime = moment(message.createdAt).format('h:mm a');
+  var li = `<li>from : ${message.from} ${formatedTime}<a target="blank" href="${message.url}">
   My current location</a>
   </li>`;
   $('#messages').append(li);
